@@ -9,13 +9,18 @@ const app = express();
 
 // ---------- Global Middlewares ----------
 
+// app.use(cors({
+//   origin: [
+//     "http://localhost:5173",
+//     "https://cf-tracker-theta.vercel.app"
+//   ],
+//   credentials: true
+// }));
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://cf-tracker-theta.vercel.app"
-  ],
+  origin: true,
   credentials: true
 }));
+
 app.use(express.json());
 
 
