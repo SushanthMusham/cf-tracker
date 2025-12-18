@@ -17,23 +17,33 @@ export default function Login() {
   setError("");
 
   try {
-    const res = await api.post("/auth/login", {
-      email,
-      password,
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Login failed");
+    }
 
     // ✅ Save token
-    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("token", data.token);
 
-    // ✅ Save user (optional)
-    localStorage.setItem("user", JSON.stringify(res.data.user));
+    // ✅ Save user
+    localStorage.setItem("user", JSON.stringify(data.user));
 
     // ✅ Redirect
     navigate("/dashboard");
   } catch (err) {
-    setError(
-      err.response?.data?.message || "Login failed"
-    );
+    setError(err.message);
   } finally {
     setLoading(false);
   }
