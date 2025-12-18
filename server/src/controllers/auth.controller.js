@@ -31,6 +31,8 @@ exports.register = async (req,res) => {
             cfHandle
         });
 
+        // save user to DB
+        await newUser.save();
 
         // respond with success message
         res.status(201).json(
