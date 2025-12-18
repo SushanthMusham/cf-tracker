@@ -12,39 +12,33 @@ export default function Login() {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // ⛔ stop page reload
-    setLoading(true);
-    setError("");
+  e.preventDefault();
+  setLoading(true);
+  setError("");
 
-    try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const res = await api.post("/auth/login", {
+      email,
+      password,
+    });
 
-      const data = await res.json();
+    // ✅ Save token
+    localStorage.setItem("token", res.data.token);
 
-      if (!res.ok) {
-        throw new Error(data.message || "Login failed");
-      }
+    // ✅ Save user (optional)
+    localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      // ✅ Save token
-      localStorage.setItem("token", data.token);
+    // ✅ Redirect
+    navigate("/dashboard");
+  } catch (err) {
+    setError(
+      err.response?.data?.message || "Login failed"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
-      // ✅ Optional: save user info
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      // ✅ Redirect to dashboard
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
 
 
