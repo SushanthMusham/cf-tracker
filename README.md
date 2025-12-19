@@ -1,5 +1,3 @@
-Awesome—here’s a **clean, professional, production-ready README** for your CF Tracker project.
-You can paste directly into `README.md` and tweak the project name / links.
 
 ---
 
