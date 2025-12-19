@@ -5,8 +5,7 @@
 
 A full-stack web application that lets users track their **Codeforces performance, rating history, problem-solving analytics, and contest trends** through a clean dashboard with beautiful charts.
 
-Live Demo → **https://<your-vercel-domain>**
-Backend API → **https://<your-render-backend-url>**
+Live Demo → **https://cf-tracker-theta.vercel.app/dashboard
 
 ---
 
